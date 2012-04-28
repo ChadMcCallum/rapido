@@ -14,6 +14,7 @@ namespace Rapido
     public class PathTime
     {
         public String PathKey { get; set; }
+        public String User { get; set; }
         public TimeSpan TotalTime { get; set; }
         public TimeSpan[] SplitTimes { get; set; }
     }
