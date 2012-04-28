@@ -8,8 +8,6 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
 using System.Reflection;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Rapido
 {
