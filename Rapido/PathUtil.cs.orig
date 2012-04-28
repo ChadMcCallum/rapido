@@ -1,4 +1,5 @@
 ﻿using System;
+<<<<<<< HEAD
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,27 @@ using System.IO;
 namespace Rapido
 {
     public static class PathUtil
+=======
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.IO;
+using Microsoft.Phone.Controls.Maps;
+using System.Device.Location;
+
+namespace Rapido
+{
+    public static class PathUtil
+>>>>>>> 84f5588aea949e7c2453892f88213fa20be2f429
     {
 
         public static string FormatTimeSpan(TimeSpan timespan)
@@ -41,8 +63,6 @@ namespace Rapido
                         Math.Acos(Math.Sin(c1.Latitude) * Math.Sin(c2.Latitude) +
                         Math.Cos(c1.Latitude) * Math.Cos(c2.Latitude) *
                         Math.Cos(c2.Longitude - c1.Longitude)) * 6731;
-
-            
         }
 
         public static IEnumerable<Path.Coordinate> GetSplits(Path path, Int32 splitCount)
