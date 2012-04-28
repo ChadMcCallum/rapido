@@ -44,7 +44,6 @@ namespace Rapido
         {
             courses = PathUtil.GetNearestPaths(position.Latitude, position.Longitude).ToList();
             CurrentCourse = courses.First();
-
             DrawCourse();
         }
 
