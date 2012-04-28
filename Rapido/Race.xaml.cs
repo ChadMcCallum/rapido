@@ -13,17 +13,11 @@ using Microsoft.Phone.Controls;
 
 namespace Rapido
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class Race : PhoneApplicationPage
     {
-        // Constructor
-        public MainPage()
+        public Race()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/SelectCourse.xaml", UriKind.Relative));
         }
     }
 }
