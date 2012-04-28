@@ -18,8 +18,6 @@
             <RowDefinition Height="74" />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition Height="75" />
-            <RowDefinition Height="75" />
         </Grid.RowDefinitions>
         <map:Map Width="480" Height="480" x:Name="MapPreview"></map:Map>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -27,9 +25,27 @@
             <TextBlock Width="345" FontSize="32" TextAlignment="Center" VerticalAlignment="Center">Course 1</TextBlock>
             <Button Content=">" x:Name="Next" Click="Next_Click" />
         </StackPanel>
-        <TextBlock Grid.Row="2">Best Time: 3:15.00</TextBlock>
-        <TextBlock Grid.Row="3">Your Best: 4:25.13</TextBlock>
-        <Button Grid.Row="4" Click="Button_Click">Race</Button>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">Best Time</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1">3:15.00</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0">Personal Best</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1">4:07.00</TextBlock>
+        </Grid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,20,0,0">
+            <Button Content="Bike" Width="120" Click="Button_Click" />
+            <Button Content="Run" Width="120" Click="Button_Click" />
+            <Button Content="Blade" Width="120" Click="Button_Click" />
+            <Button Content="Skate" Width="120" Click="Button_Click" />
+        </StackPanel>
+        
     </Grid>
 
 </phone:PhoneApplicationPage>

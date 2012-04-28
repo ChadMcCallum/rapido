@@ -108,7 +108,7 @@ namespace Rapido
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-            RaceMap.SetView(e.Position.Location, 16);
+            RaceMap.SetView(e.Position.Location, 18);
             lastCoordinate = e.Position.Location;
             SetMyLocation(e.Position.Location);
             if (!racing)
@@ -147,6 +147,9 @@ namespace Rapido
         {
             timer.Stop();
             end = DateTime.Now;
+            racing = false;
+            watcher.Stop();
+            FinishTime.Text = FormatTimeSpan(end.Value.Subtract(start.Value));
         }
 
         private void CheckForStart(GeoCoordinate location)
@@ -159,7 +162,7 @@ namespace Rapido
             }
             else
             {
-                Distance.Text = string.Format("You are {0} m away from the start position", distance);
+                Distance.Text = string.Format("You are {0:0} m away from the start position", distance);
             }
         }
 

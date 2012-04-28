@@ -78,10 +78,28 @@ VerticalAlignment="Center" Fill="Yellow" Width="16"/>
             <TextBlock Grid.Row="4" Grid.Column="0">Matt Behind</TextBlock>
             <TextBlock Grid.Row="4" Grid.Column="1">-0:11.87</TextBlock>
         </Grid>
-        <StackPanel Grid.Row="1" x:Name="Finished" Visibility="Collapsed">
-            <TextBlock Grid.Row="1">A Winner Is You!</TextBlock>
-            <Button Content="Race Again!" Click="Button_Click" />
-        </StackPanel>
-        
+        <Grid Grid.Row="1" x:Name="Finished" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="75" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">3rd</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1">Phil</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Foreground="Red">-0:03.75</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0">4th</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1">You</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="2" x:Name="FinishTime"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0">5th</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1">Matt</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="2" Foreground="Green">+0:03.75</TextBlock>
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Race Again!" Click="Button_Click" />
+        </Grid>        
     </Grid>
 </phone:PhoneApplicationPage>
