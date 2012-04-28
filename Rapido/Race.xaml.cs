@@ -69,14 +69,10 @@ namespace Rapido
             if (racing)
             {
                 var timespan = DateTime.Now.Subtract(start.Value);
-                Elapsed.Text = FormatTimeSpan(timespan);
+                Elapsed.Text = PathUtil.FormatTimeSpan(timespan);
             }
         }
 
-        private string FormatTimeSpan(TimeSpan timespan)
-        {
-            return string.Format("{0}:{1:00}.{2:##}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
-        }
 
         private void InitMap()
         {
@@ -149,7 +145,7 @@ namespace Rapido
             end = DateTime.Now;
             racing = false;
             watcher.Stop();
-            FinishTime.Text = FormatTimeSpan(end.Value.Subtract(start.Value));
+            FinishTime.Text = PathUtil.FormatTimeSpan(end.Value.Subtract(start.Value));
         }
 
         private void CheckForStart(GeoCoordinate location)
@@ -171,7 +167,7 @@ namespace Rapido
             var lastSplit = splitTimes.OrderByDescending(s => s.Time).First();
             if(lastSplit.Time.HasValue)
             {
-                SplitTime.Text = FormatTimeSpan(lastSplit.Time.Value);
+                SplitTime.Text = PathUtil.FormatTimeSpan(lastSplit.Time.Value);
             }
         }
 

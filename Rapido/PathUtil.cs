@@ -19,6 +19,12 @@ namespace Rapido
 {
     public static class PathUtil
     {
+
+        public static string FormatTimeSpan(TimeSpan timespan)
+        {
+            return string.Format("{0}:{1:00}.{2:##}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
+        }
+
         public static IEnumerable<Path> GetNearestPaths(Double latitude, Double longitude)
         {
             IEnumerable<Path> paths;
