@@ -22,8 +22,9 @@ namespace Rapido
 
                 var description = descriptionElem.Value;
 
-                var match = Regex.Match(description, @"\d+");
-                if (Double.Parse(match.Value) < 100.0 )
+                var match = Regex.Match(description, @"[\d\.]+");
+                var length = Double.Parse(match.Value);
+                if (length < 100.0 )
                 {
                     continue;
                 }
@@ -41,6 +42,7 @@ namespace Rapido
 
                 var path = new Path
                 {
+                    Length = length,
                     Key = String.Format("{0},{1}", coordinateList.First().Latitude.ToString(), coordinateList.First().Longitude.ToString()),
                     Description = descriptionElem.Value,
                     Coordinates = coordinateList

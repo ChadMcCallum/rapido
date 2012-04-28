@@ -17,6 +17,7 @@ namespace Rapido
         public String Key { get; set; }
         public String Description { get; set; }
         public IEnumerable<Coordinate> Coordinates { get; set; }
+        public Double Length { get; set; }
 
         public class Coordinate
         {
