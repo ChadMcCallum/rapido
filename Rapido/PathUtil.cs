@@ -31,13 +31,20 @@ namespace Rapido
                 .Select(x => new
                 {
                     Path = x,
-                    DistanceToStart =
-                        Math.Acos(Math.Sin(x.Coordinates.First().Latitude) * Math.Sin(latitude) +
-                        Math.Cos(x.Coordinates.First().Latitude) * Math.Cos(latitude) *
-                        Math.Cos(longitude - x.Coordinates.First().Longitude)) * 6731
+                    DistanceToStart = GetDistance(x.Coordinates.First(), new Path.Coordinate { Latitude = latitude, Longitude = longitude })
                 })
                 .OrderBy(x => x.DistanceToStart)
                 .Select(x => x.Path);
+        }
+
+        public static Double GetDistance(Path.Coordinate c1, Path.Coordinate c2)
+        {
+            return
+                        Math.Acos(Math.Sin(c1.Latitude) * Math.Sin(c2.Latitude) +
+                        Math.Cos(c1.Latitude) * Math.Cos(c2.Latitude) *
+                        Math.Cos(c2.Longitude - c1.Longitude)) * 6731;
+
+            
         }
     }
 }
