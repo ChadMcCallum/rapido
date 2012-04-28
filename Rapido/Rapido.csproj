@@ -70,6 +70,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PathTime.cs" />
     <Compile Include="PathUtil.cs" />
     <Compile Include="PreviewCourse.xaml.cs">
       <DependentUpon>PreviewCourse.xaml</DependentUpon>

@@ -32,8 +32,9 @@ namespace Rapido
 
                 var path = new Path
                 {
-                     Description = descriptionElem.Value,
-                     Coordinates = coordinateList
+                    Key = String.Format("{0},{1}", coordinateList.First().Latitude.ToString(), coordinateList.First().Longitude.ToString()),
+                    Description = descriptionElem.Value,
+                    Coordinates = coordinateList
                 };
 
                 yield return path;

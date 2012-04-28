@@ -14,6 +14,7 @@ namespace Rapido
 {
     public class Path
     {
+        public String Key { get; set; }
         public String Description { get; set; }
         public IEnumerable<Coordinate> Coordinates { get; set; }
 
