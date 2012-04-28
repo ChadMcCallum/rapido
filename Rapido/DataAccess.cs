@@ -19,35 +19,35 @@ namespace Rapido
     {
         public static List<PathTime> _pathTimes = new List<PathTime>();
 
-        public static PathTime GetBestTimeForPath(String pathKey)
+        public static PathTime GetBestTimeForPath(String pathKey, TransportationMode mode = TransportationMode.Bike)
         {
             return _pathTimes
-                    .Where(x => x.PathKey == pathKey)
+                    .Where(x => x.PathKey == pathKey && x.Mode == mode)
                     .OrderBy(x => x.TotalTime)
                     .FirstOrDefault();
         }
 
-        public static PathTime GetBestTimeForPathByUser(String pathKey, String userName)
+        public static PathTime GetBestTimeForPathByUser(String pathKey, String userName, TransportationMode mode = TransportationMode.Bike)
         {
             return _pathTimes
-                        .Where(x => x.PathKey == pathKey && x.User == userName)
+                        .Where(x => x.PathKey == pathKey && x.User == userName && x.Mode == mode)
                         .OrderBy(x => x.TotalTime)
                         .FirstOrDefault();
 
         }
 
-        public static PathTime GetNextFastestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex)
+        public static PathTime GetNextFastestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex, TransportationMode mode = TransportationMode.Bike)
         {
             return _pathTimes
-                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] < lastSplitTime)
+                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] < lastSplitTime && x.Mode == mode)
                 .OrderByDescending(x => x.SplitTimes[splitIndex])
                 .FirstOrDefault();
         }
 
-        public static PathTime GetNextSlowestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex)
+        public static PathTime GetNextSlowestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex, TransportationMode mode = TransportationMode.Bike)
         {
             return _pathTimes
-                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] > lastSplitTime)
+                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] > lastSplitTime && x.Mode == mode)
                 .OrderBy(x => x.SplitTimes[splitIndex])
                 .FirstOrDefault();
         }
