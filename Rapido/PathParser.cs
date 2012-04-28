@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
@@ -20,10 +14,10 @@ namespace Rapido
         {
             var xDoc = XDocument.Parse(pathKml);
 
-            foreach (var placemarkElem in xDoc.Descendants("Placemark"))
+            foreach (var placemarkElem in xDoc.Descendants("{http://www.opengis.net/kml/2.2}Placemark"))
             {
-                var coordinatesElem = placemarkElem.Descendants("coordinates").Single();
-                var descriptionElem = placemarkElem.Descendants("description").Single();
+                var coordinatesElem = placemarkElem.Descendants("{http://www.opengis.net/kml/2.2}coordinates").First();
+                var descriptionElem = placemarkElem.Descendants("{http://www.opengis.net/kml/2.2}description").First();
 
                 var coordinatePairs = coordinatesElem.Value.Split(' ');
 
@@ -31,6 +25,8 @@ namespace Rapido
 
                 foreach (var coordiate in coordinatePairs)
                 {
+                    if (String.IsNullOrWhiteSpace(coordiate))
+                        continue;
                     coordinateList.Add (new Path.Coordinate { Latitude = Double.Parse(coordiate.Split(',')[0]), Longitude = Double.Parse(coordiate.Split(',')[1]) } );
                 }
 
