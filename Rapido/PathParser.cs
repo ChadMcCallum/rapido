@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Rapido
 {
@@ -18,6 +19,14 @@ namespace Rapido
             {
                 var coordinatesElem = placemarkElem.Descendants("{http://www.opengis.net/kml/2.2}coordinates").First();
                 var descriptionElem = placemarkElem.Descendants("{http://www.opengis.net/kml/2.2}description").First();
+
+                var description = descriptionElem.Value;
+
+                var match = Regex.Match(description, @"\d+");
+                if (Double.Parse(match.Value) < 100.0 )
+                {
+                    continue;
+                }
 
                 var coordinatePairs = coordinatesElem.Value.Split(' ');
 

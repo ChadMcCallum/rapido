@@ -26,7 +26,7 @@ namespace Rapido
                 paths = PathParser.Parse(new StreamReader(dataStream).ReadToEnd());
             }
 
-            return 
+            return
                 paths
                 .Select(x => new
                 {
@@ -37,8 +37,7 @@ namespace Rapido
                         Math.Cos(longitude - x.Coordinates.First().Longitude)) * 6731
                 })
                 .OrderBy(x => x.DistanceToStart)
-                .Select(x => x.Path)
-                .Take(10);
+                .Select(x => x.Path);
         }
     }
 }

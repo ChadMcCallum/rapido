@@ -86,6 +86,9 @@ namespace Rapido
         private void Next_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var currentIndex = courses.IndexOf(CurrentCourse);
+            
+            currentIndex += 2;
+            
             if (currentIndex >= courses.Count)
                 currentIndex = 0;
             CurrentCourse = courses[currentIndex];
@@ -95,6 +98,8 @@ namespace Rapido
         private void Previous_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var currentIndex = courses.IndexOf(CurrentCourse);
+
+            currentIndex -= 2;
             if (currentIndex < 0)
                 currentIndex = courses.Count - 1;
             CurrentCourse = courses[currentIndex];
