@@ -64,6 +64,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess.cs" />
     <Compile Include="Finish.xaml.cs">
       <DependentUpon>Finish.xaml</DependentUpon>
     </Compile>
