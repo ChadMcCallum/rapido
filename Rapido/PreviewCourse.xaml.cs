@@ -24,8 +24,7 @@ namespace Rapido
         {
             InitializeComponent();
             GetCurrentPosition();
-            DataContext = this;
-            
+            DataContext = this;            
         }
 
         private void GetCurrentPosition()
