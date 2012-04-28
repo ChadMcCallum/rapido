@@ -11,6 +11,13 @@ using Microsoft.Phone.Controls.Maps;
 
 namespace Rapido
 {
+    class SplitTime
+    {
+        public Path.Coordinate Coordinate { get; set; }
+        public Pushpin Pin { get; set; }
+        public TimeSpan? Time { get; set; }
+    }
+
     public partial class Race : PhoneApplicationPage
     {
         private GeoCoordinateWatcher watcher;
@@ -22,6 +29,7 @@ namespace Rapido
         private DispatcherTimer timer;
         private GeoCoordinate lastCoordinate;
         private IEnumerable<Path.Coordinate> splits;
+        private List<SplitTime> splitTimes;
         private Pushpin myPushpin;
 
         public Race()
@@ -38,14 +46,16 @@ namespace Rapido
 
         private void SetupSplits()
         {
+            splitTimes = new List<SplitTime>();
             splits = PathUtil.GetSplits(currentCourse, 3);
 
-            foreach(var split in splits)
+            foreach (var split in splits)
             {
                 var pin = new Pushpin();
                 pin.Template = Resources["pinSplit"] as ControlTemplate;
                 pin.Location = new GeoCoordinate(split.Latitude, split.Longitude);
                 RaceMap.Children.Add(pin);
+                splitTimes.Add(new SplitTime { Coordinate = split, Pin = pin, Time = null });
             }
         }
 
@@ -59,8 +69,13 @@ namespace Rapido
             if (racing)
             {
                 var timespan = DateTime.Now.Subtract(start.Value);
-                Elapsed.Text = string.Format("{0}:{1:00}.{2:##}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
+                Elapsed.Text = FormatTimeSpan(timespan);
             }
+        }
+
+        private string FormatTimeSpan(TimeSpan timespan)
+        {
+            return string.Format("{0}:{1:00}.{2:##}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
         }
 
         private void InitMap()
@@ -115,10 +130,17 @@ namespace Rapido
                 Finished.Visibility = Visibility.Visible;
                 FinishRace();
             }
-            else
+            foreach(var split in splitTimes.Where(s => !s.Time.HasValue))
             {
-                UpdateStats(location);
+                var splitDistance = PathUtil.GetDistance(new Path.Coordinate(location.Latitude, location.Longitude), split.Coordinate);
+                if (splitDistance < Math.Max(location.HorizontalAccuracy, location.VerticalAccuracy))
+                {
+                    split.Time = DateTime.Now.Subtract(start.Value);
+                    split.Pin.Template = Resources["pinSplitPassed"] as ControlTemplate;
+                    break;
+                }
             }
+            UpdateStats(location);
         }
 
         private void FinishRace()
@@ -143,16 +165,11 @@ namespace Rapido
 
         private void UpdateStats(GeoCoordinate location)
         {
-            if (last.HasValue)
+            var lastSplit = splitTimes.OrderByDescending(s => s.Time).First();
+            if(lastSplit.Time.HasValue)
             {
-                var distance = PathUtil.GetDistance(new Path.Coordinate(lastCoordinate.Latitude, lastCoordinate.Longitude),
-                                                    new Path.Coordinate(location.Latitude, location.Longitude));
-                var time = DateTime.Now.Subtract(last.Value);
-
-                var kmh = distance / time.TotalSeconds;
-                Speed.Text = string.Format("{0} km/h", kmh);
+                SplitTime.Text = FormatTimeSpan(lastSplit.Time.Value);
             }
-            last = DateTime.Now;
         }
 
         private void StartRace_Click(object sender, RoutedEventArgs e)

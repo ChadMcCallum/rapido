@@ -22,6 +22,16 @@ Margin="0" Stroke="White" VerticalAlignment="Center"
 Height="26" Width="26"/>                
             </Grid>
         </ControlTemplate>
+        <ControlTemplate x:Key="pinSplitPassed" TargetType="map:Pushpin">
+            <Grid Height="26" Width="26" Margin="-13,-13,0,0" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <CompositeTransform Rotation="-45"/>
+                </Grid.RenderTransform>
+                <Rectangle Fill="Green" HorizontalAlignment="Center" 
+Margin="0" Stroke="White" VerticalAlignment="Center" 
+Height="26" Width="26"/>
+            </Grid>
+        </ControlTemplate>
         <ControlTemplate x:Key="pinMyLoc" TargetType="map:Pushpin">
             <Grid Height="26" Width="26" Margin="-13,-13,0,0" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
@@ -62,7 +72,7 @@ VerticalAlignment="Center" Fill="Yellow" Width="16"/>
             <TextBlock Grid.Row="1" Grid.Column="0">Current Time</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1" x:Name="Elapsed">0:15.00</TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="0">Split Time</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1">0:12.00</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="SplitTime">0:12.00</TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="0">Phil Ahead</TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="1">+0:01.15</TextBlock>
             <TextBlock Grid.Row="4" Grid.Column="0">Matt Behind</TextBlock>
