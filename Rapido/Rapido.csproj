@@ -75,13 +75,9 @@
     </Compile>
     <Compile Include="Path.cs" />
     <Compile Include="PathParser.cs" />
-
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Race.xaml.cs">
       <DependentUpon>Race.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SelectCourse.xaml.cs">
-      <DependentUpon>SelectCourse.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -102,10 +98,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Race.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectCourse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,7 +24,7 @@
         <map:Map Width="480" Height="480" x:Name="MapPreview"></map:Map>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="&lt;" />
-            <TextBlock Width="345" TextAlignment="Center" VerticalAlignment="Center">Course 1</TextBlock>
+            <TextBlock Width="345" FontSize="32" TextAlignment="Center" VerticalAlignment="Center">Course 1</TextBlock>
             <Button Content=">" />
         </StackPanel>
         <TextBlock Grid.Row="2">Best Time: 3:15.00</TextBlock>
