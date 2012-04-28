@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.IO;
 
 namespace Rapido
 {
@@ -19,6 +20,9 @@ namespace Rapido
         public MainPage()
         {
             InitializeComponent();
+
+
+            //PathParser.Parse(File.OpenText("MapData.xml").ReadToEnd());
         }
     }
 }
