@@ -38,18 +38,32 @@ namespace Rapido
 
         public static PathTime GetNextFastestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex, TransportationMode mode = TransportationMode.Bike)
         {
-            return _pathTimes
-                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] < lastSplitTime && x.Mode == mode)
-                .OrderByDescending(x => x.SplitTimes[splitIndex])
-                .FirstOrDefault();
+            try
+            {
+                return _pathTimes
+                    .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] < lastSplitTime && x.Mode == mode)
+                    .OrderByDescending(x => x.SplitTimes[splitIndex])
+                    .FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static PathTime GetNextSlowestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex, TransportationMode mode = TransportationMode.Bike)
         {
-            return _pathTimes
-                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] > lastSplitTime && x.Mode == mode)
-                .OrderBy(x => x.SplitTimes[splitIndex])
-                .FirstOrDefault();
+            try
+            {
+                return _pathTimes
+                    .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] > lastSplitTime && x.Mode == mode)
+                    .OrderBy(x => x.SplitTimes[splitIndex])
+                    .FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 
