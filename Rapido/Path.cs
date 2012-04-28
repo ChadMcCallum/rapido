@@ -21,6 +21,17 @@ namespace Rapido
 
         public class Coordinate
         {
+            public Coordinate()
+            {
+                
+            }
+
+            public Coordinate(double latitiude, double longitude)
+            {
+                Latitude = latitiude;
+                Longitude = longitude;
+            }
+
             public Double Latitude { get; set; }
             public Double Longitude { get; set; }
         }

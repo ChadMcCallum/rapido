@@ -15,27 +15,35 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="600" />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <map:Map Width="480" Height="600" x:Name="RaceMap" Grid.ColumnSpan="2">
-            
-        </map:Map>
-        <TextBlock Grid.Row="1" Grid.Column="0">Speed</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="1">30km/h</TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="0">Current Time</TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="1">0:15.00</TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="0">Split Time</TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="1">0:12.00</TextBlock>
-        <TextBlock Grid.Row="4" Grid.Column="0">Phil Ahead</TextBlock>
-        <TextBlock Grid.Row="4" Grid.Column="1">+0:01.15</TextBlock>
-        <TextBlock Grid.Row="5" Grid.Column="0">Matt Behind</TextBlock>
-        <TextBlock Grid.Row="5" Grid.Column="1">-0:11.87</TextBlock>
+        <map:Map Width="480" Height="600" x:Name="RaceMap" Grid.Row="0">
+
+        </map:Map>        
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center" x:Name="Distance" Text="You are 30 m away from the start position" />
+        <Button Content="Start" Grid.Row="1" Visibility="Collapsed" x:Name="StartRace" Click="StartRace_Click" />
+        <Grid Grid.Row="1" Visibility="Collapsed" x:Name="Stats">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">Speed</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Speed">30km/h</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0">Current Time</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="Elapsed">0:15.00</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0">Split Time</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1">0:12.00</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0">Phil Ahead</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1">+0:01.15</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0">Matt Behind</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1">-0:11.87</TextBlock>
+        </Grid>
+        <TextBlock x:Name="Finished" Grid.Row="1" Visibility="Collapsed">A Winner Is You!</TextBlock>
     </Grid>
 </phone:PhoneApplicationPage>

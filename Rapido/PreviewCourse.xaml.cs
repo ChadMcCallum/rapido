@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
@@ -80,6 +81,7 @@ namespace Rapido
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            ((App) Application.Current).CurrentCourse = CurrentCourse;
             NavigationService.Navigate(new Uri("/Race.xaml", UriKind.Relative));
         }
 
