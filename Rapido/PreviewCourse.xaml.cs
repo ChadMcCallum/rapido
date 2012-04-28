@@ -43,7 +43,7 @@ namespace Rapido
 
         private void GetCourses(GeoCoordinate position)
         {
-
+            courses = PathUtil.GetNearestPaths(position.Latitude, position.Longitude).ToList();
             CurrentCourse = courses.First();
 
             DrawCourse();
@@ -66,15 +66,17 @@ namespace Rapido
             }
             MapPreview.Children.Add(polyline);
 
-            var courseRect = new LocationRect
-                                 {
-                                     North = CurrentCourse.Coordinates.Max(c => c.Latitude),
-                                     South = CurrentCourse.Coordinates.Min(c => c.Latitude),
-                                     East = CurrentCourse.Coordinates.Min(c => c.Longitude),
-                                     West = CurrentCourse.Coordinates.Max(c => c.Longitude)
-                                 };
+            //var courseRect = new LocationRect();
+            //courseRect.North = CurrentCourse.Coordinates.Max(c => c.Latitude);
+            //courseRect.South = CurrentCourse.Coordinates.Min(c => c.Latitude);
+            //courseRect.East = CurrentCourse.Coordinates.Min(c => c.Longitude);
+            //courseRect.West = CurrentCourse.Coordinates.Max(c => c.Longitude);
 
-            MapPreview.SetView(courseRect);
+            var center = new GeoCoordinate();
+            center.Latitude = CurrentCourse.Coordinates.Average(c => c.Latitude);
+            center.Longitude = CurrentCourse.Coordinates.Average(c => c.Longitude);
+
+            MapPreview.SetView(center, 15);
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
