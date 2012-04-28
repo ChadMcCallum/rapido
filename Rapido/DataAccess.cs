@@ -8,36 +8,92 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Collections.Generic;
+using System.IO.IsolatedStorage;
+using System.Xml.Serialization;
+using System.Linq;
 
 namespace Rapido
 {
     public static class DataAccess
     {
+        public static List<PathTime> _pathTimes = new List<PathTime>();
+
+
         public static PathTime GetBestTimeForPath(String pathKey)
         {
-            return new PathTime
-            {
-                User = "Phil",
-                PathKey = pathKey,
-                SplitTimes = new TimeSpan[] { TimeSpan.FromSeconds(20.0), TimeSpan.FromSeconds(30.0), TimeSpan.FromSeconds(25.0) },
-                TotalTime = TimeSpan.FromSeconds(75.0)
-            };
+            Load();
+
+            return _pathTimes
+                    .Where(x => x.PathKey == pathKey)
+                    .OrderBy(x => x.TotalTime)
+                    .FirstOrDefault();
         }
 
         public static PathTime GetBestTimeForPathByUser(String pathKey, String userName)
         {
-            return new PathTime
-            {
-                User = "Chad",
-                PathKey = pathKey,
-                SplitTimes = new TimeSpan[] { TimeSpan.FromSeconds(30.0), TimeSpan.FromSeconds(40.0), TimeSpan.FromSeconds(35.0) },
-                TotalTime = TimeSpan.FromSeconds(105.0)
-            };
+            Load();
+
+            return _pathTimes
+                        .Where(x => x.PathKey == pathKey && x.User == userName)
+                        .OrderBy(x => x.TotalTime)
+                        .FirstOrDefault();
+
         }
 
         public static void PostPathTime(PathTime pathTime)
-        {
+        {          
 
+            _pathTimes.Add(pathTime);
+
+            Save();
+        }
+
+        private static void Save()
+        {
+            #if WINDOWS_PHONE
+            IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication();
+#else
+            IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain();
+#endif
+
+            // open isolated storage, and write the savefile.
+            IsolatedStorageFileStream fs = null;
+            using (fs = savegameStorage.CreateFile("SaveData.xml"))
+            {
+                if (fs != null)
+                {
+                    // just overwrite the existing info for this example.
+                    var serializer = new XmlSerializer(typeof(PathTime[]));
+                    serializer.Serialize(fs, _pathTimes.ToArray());
+                }
+            }
+        }
+
+        private static void Load()
+        {
+            // open isolated storage, and load data from the savefile if it exists.
+#if WINDOWS_PHONE
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
+#else
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain())
+#endif
+            {
+                if (savegameStorage.FileExists("SaveData.xml"))
+                {
+                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile("SaveData.xml", System.IO.FileMode.Open))
+                    {
+                        if (fs != null)
+                        {
+                            var serializer = new XmlSerializer(typeof(PathTime[]));
+                            var paths = (PathTime[])serializer.Deserialize(fs);
+
+                            _pathTimes.Clear();
+                            _pathTimes.AddRange(paths);
+                        }
+                    }
+                }
+            }
         }
     }
 }
