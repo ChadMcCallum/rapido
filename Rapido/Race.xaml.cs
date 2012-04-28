@@ -18,6 +18,12 @@ namespace Rapido
         public Race()
         {
             InitializeComponent();
+            InitMap();
+        }
+
+        private void InitMap()
+        {
+            
         }
     }
 }

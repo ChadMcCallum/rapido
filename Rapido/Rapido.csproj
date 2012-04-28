@@ -80,9 +80,6 @@
     <Compile Include="Race.xaml.cs">
       <DependentUpon>Race.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SelectCourse.xaml.cs">
-      <DependentUpon>SelectCourse.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -102,10 +99,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Race.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectCourse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
