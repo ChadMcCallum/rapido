@@ -56,6 +56,17 @@ namespace Rapido
         public static void PostPathTime(PathTime pathTime)
         {          
             _pathTimes.Add(pathTime);
+            UpdateRanks();
+        }
+
+        private static void UpdateRanks()
+        {
+            var orderedTimes = _pathTimes.OrderBy(x => x.TotalTime).ToList();
+
+            for (Int32 i = 0; i < orderedTimes.Count(); i++)
+            {
+                orderedTimes[i].Rank = i + 1;
+            }
         }
 
         public static void Save()

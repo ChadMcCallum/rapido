@@ -52,8 +52,6 @@ namespace Rapido
                         Math.Acos(Math.Sin(c1.Latitude) * Math.Sin(c2.Latitude) +
                         Math.Cos(c1.Latitude) * Math.Cos(c2.Latitude) *
                         Math.Cos(c2.Longitude - c1.Longitude)) * 6731;
-
-            
         }
 
         public static IEnumerable<Path.Coordinate> GetSplits(Path path, Int32 splitCount)

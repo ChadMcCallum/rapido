@@ -27,5 +27,6 @@ namespace Rapido
         public TimeSpan TotalTime { get; set; }
         public TimeSpan[] SplitTimes { get; set; }
         public TransportationMode Mode { get; set; }
+        public Int32 Rank { get; set; }
     }
 }
