@@ -24,10 +24,6 @@ namespace Rapido
 
                 var match = Regex.Match(description, @"[\d\.]+");
                 var length = Double.Parse(match.Value);
-                if (length < 100.0 )
-                {
-                    continue;
-                }
 
                 var coordinatePairs = coordinatesElem.Value.Split(' ');
 

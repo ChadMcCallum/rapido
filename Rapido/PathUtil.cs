@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.IO;
+using Microsoft.Phone.Controls.Maps;
+using System.Device.Location;
 
 namespace Rapido
 {
@@ -28,8 +30,9 @@ namespace Rapido
 
             return
                 paths
+                .Where(x => x.Length > 500.0)
                 .Select(x => new
-                {
+                {                    
                     Path = x,
                     DistanceToStart = GetDistance(x.Coordinates.First(), new Path.Coordinate { Latitude = latitude, Longitude = longitude })
                 })
@@ -45,6 +48,56 @@ namespace Rapido
                         Math.Cos(c2.Longitude - c1.Longitude)) * 6731;
 
             
+        }
+
+        public static IEnumerable<Path.Coordinate> GetSplits(Path path, Int32 splitCount)
+        {
+            var coordinates = path.Coordinates.ToList();
+            var segments = new List<Segment>();
+
+            for (Int32 i = 0; i < coordinates.Count - 2; i++)
+            {
+                var s = new Segment();
+                s.Start = coordinates[i];
+                s.End = coordinates[i + 1];
+                s.Distance = Math.Sqrt((s.Start.Latitude - s.End.Latitude) * (s.Start.Latitude - s.End.Latitude) + (s.Start.Longitude - s.End.Longitude) * (s.Start.Longitude - s.End.Longitude));
+
+                segments.Add(s);
+            }
+
+            var totalDistance = segments.Sum(x => x.Distance);
+            var splitDistance = totalDistance / splitCount;
+            var splits = new List<Path.Coordinate>();
+            var nextSplitDistance = 0.0;
+            var distanceTraversed = 0.0;
+            var segmentIndex = 0;
+
+            while (splits.Count < splitCount)
+            {
+                nextSplitDistance += splitDistance;
+
+                while (distanceTraversed < nextSplitDistance)
+                {
+                    distanceTraversed += segments[segmentIndex].Distance;
+                    segmentIndex++;
+                    if (segmentIndex == segments.Count)
+                    {
+                        segmentIndex--;
+                        break;
+                    }
+                }
+
+                splits.Add(segments[segmentIndex].End);                
+            }                
+
+            return splits;
+        }
+
+        private class Segment
+        {
+            public Path.Coordinate Start { get; set; }
+            public Path.Coordinate End { get; set; }
+            public Double Distance { get; set; }
         }
     }
 }
