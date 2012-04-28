@@ -22,6 +22,7 @@ namespace Rapido
         private DispatcherTimer timer;
         private GeoCoordinate lastCoordinate;
         private IEnumerable<Path.Coordinate> splits;
+        private Pushpin myPushpin;
 
         public Race()
         {
@@ -42,10 +43,15 @@ namespace Rapido
             foreach(var split in splits)
             {
                 var pin = new Pushpin();
-                pin.Template = Resources["pinMyLoc"] as ControlTemplate;
+                pin.Template = Resources["pinSplit"] as ControlTemplate;
                 pin.Location = new GeoCoordinate(split.Latitude, split.Longitude);
                 RaceMap.Children.Add(pin);
             }
+        }
+
+        private void SetMyLocation(GeoCoordinate location)
+        {
+            myPushpin.Location = location;
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -59,6 +65,9 @@ namespace Rapido
 
         private void InitMap()
         {
+            myPushpin = new Pushpin();
+            myPushpin.Template = Resources["pinMyLoc"] as ControlTemplate;
+            RaceMap.Children.Add(myPushpin);
             var polyline = new MapPolyline
             {
                 Stroke = new SolidColorBrush(Colors.Red),
@@ -86,6 +95,7 @@ namespace Rapido
         {
             RaceMap.SetView(e.Position.Location, 16);
             lastCoordinate = e.Position.Location;
+            SetMyLocation(e.Position.Location);
             if (!racing)
             {
                 CheckForStart(e.Position.Location);
@@ -152,6 +162,11 @@ namespace Rapido
             start = DateTime.Now;
             racing = true;
             timer.Start();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/PreviewCourse.xaml", UriKind.Relative));
         }
     }
 }
