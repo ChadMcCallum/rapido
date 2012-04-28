@@ -11,6 +11,20 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <ControlTemplate x:Key="pinMyLoc" TargetType="map:Pushpin">
+            <Grid Height="26" Width="26" Margin="-13,-13,0,0" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <CompositeTransform Rotation="-45"/>
+                </Grid.RenderTransform>
+                <Rectangle Fill="Black" HorizontalAlignment="Center" 
+Margin="0" Stroke="White" VerticalAlignment="Center" 
+Height="26" Width="26"/>
+                <Ellipse HorizontalAlignment="Center" Height="16" Margin="0" 
+VerticalAlignment="Center" Fill="Yellow" Width="16"/>
+            </Grid>
+        </ControlTemplate>
+    </phone:PhoneApplicationPage.Resources>
     <Grid x:Name="LayoutRoot" Background="Transparent" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="600" />

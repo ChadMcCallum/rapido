@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
@@ -19,16 +21,31 @@ namespace Rapido
         private DateTime? last;
         private DispatcherTimer timer;
         private GeoCoordinate lastCoordinate;
+        private IEnumerable<Path.Coordinate> splits;
 
         public Race()
         {
             InitializeComponent();
             StartWatcher();
             currentCourse = ((App)Application.Current).CurrentCourse;
+            SetupSplits();
             InitMap();
             timer = new DispatcherTimer();
             timer.Tick += timer_Tick;
             timer.Interval = TimeSpan.FromSeconds(0.1);
+        }
+
+        private void SetupSplits()
+        {
+            splits = PathUtil.GetSplits(currentCourse, 3);
+
+            foreach(var split in splits)
+            {
+                var pin = new Pushpin();
+                pin.Template = Resources["pinMyLoc"] as ControlTemplate;
+                pin.Location = new GeoCoordinate(split.Latitude, split.Longitude);
+                RaceMap.Children.Add(pin);
+            }
         }
 
         void timer_Tick(object sender, EventArgs e)
