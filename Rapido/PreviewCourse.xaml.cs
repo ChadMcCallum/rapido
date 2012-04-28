@@ -113,12 +113,6 @@ namespace Rapido
             }
             MapPreview.Children.Add(polyline);
 
-            //var courseRect = new LocationRect();
-            //courseRect.North = CurrentCourse.Coordinates.Max(c => c.Latitude);
-            //courseRect.South = CurrentCourse.Coordinates.Min(c => c.Latitude);
-            //courseRect.East = CurrentCourse.Coordinates.Min(c => c.Longitude);
-            //courseRect.West = CurrentCourse.Coordinates.Max(c => c.Longitude);
-
             var center = new GeoCoordinate();
             center.Latitude = CurrentCourse.Coordinates.Average(c => c.Latitude);
             center.Longitude = CurrentCourse.Coordinates.Average(c => c.Longitude);
@@ -128,7 +122,9 @@ namespace Rapido
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ((App)Application.Current).CurrentCourse = CurrentCourse;
+            var app = ((App)Application.Current);
+            app.CurrentCourse = CurrentCourse;
+            app.CurrentMode = currentMode;
             NavigationService.Navigate(new Uri("/Race.xaml", UriKind.Relative));
         }
 
@@ -167,7 +163,6 @@ namespace Rapido
             InvertButton(Run);
             currentMode = TransportationMode.Walk;
             GetTimesForCourse();
-
         }
 
         private void Blade_Click(object sender, RoutedEventArgs e)
@@ -175,7 +170,6 @@ namespace Rapido
             InvertButton(Blade);
             currentMode = TransportationMode.Blade;
             GetTimesForCourse();
-
         }
 
         private void Skate_Click(object sender, RoutedEventArgs e)
@@ -183,7 +177,6 @@ namespace Rapido
             InvertButton(Skate);
             currentMode = TransportationMode.Skate;
             GetTimesForCourse();
-
         }
     }
 }

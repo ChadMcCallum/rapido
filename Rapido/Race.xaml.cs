@@ -31,12 +31,15 @@ namespace Rapido
         private IEnumerable<Path.Coordinate> splits;
         private List<SplitTime> splitTimes;
         private Pushpin myPushpin;
+        private TransportationMode mode;
 
         public Race()
         {
             InitializeComponent();
             StartWatcher();
-            currentCourse = ((App)Application.Current).CurrentCourse;
+            var app = ((App) Application.Current);
+            currentCourse = app.CurrentCourse;
+            mode = app.CurrentMode;
             SetupSplits();
             InitMap();
             timer = new DispatcherTimer();
@@ -146,6 +149,15 @@ namespace Rapido
             racing = false;
             watcher.Stop();
             FinishTime.Text = PathUtil.FormatTimeSpan(end.Value.Subtract(start.Value));
+            var result = new PathTime
+                             {
+                                 PathKey = currentCourse.Key,
+                                 Mode = mode,
+                                 User = "Chad",
+                                 SplitTimes = splitTimes.Where(s => s.Time.HasValue).Select(s => s.Time.Value).ToArray()
+                             };
+            DataAccess.PostPathTime(result);
+            DataAccess.Save();
         }
 
         private void CheckForStart(GeoCoordinate location)
@@ -165,9 +177,33 @@ namespace Rapido
         private void UpdateStats(GeoCoordinate location)
         {
             var lastSplit = splitTimes.OrderByDescending(s => s.Time).First();
+            var index = splitTimes.Count(c => c.Time.HasValue);
             if(lastSplit.Time.HasValue)
             {
                 SplitTime.Text = PathUtil.FormatTimeSpan(lastSplit.Time.Value);
+                var result = DataAccess.GetNextFastestTime(currentCourse.Key, lastSplit.Time.Value, index - 1, mode);
+                if(result != null) 
+                {
+                LeaderName.Text = result.User;
+                LeaderTime.Text = PathUtil.FormatTimeSpan(result.SplitTimes[index]);
+                }
+                else
+                {
+                    LeaderName.Text = "N/A";
+                    LeaderTime.Text = "N/A";
+                }
+
+                result = DataAccess.GetNextSlowestTime(currentCourse.Key, lastSplit.Time.Value, index, mode);
+                if(result != null)
+                {
+                    FollowerName.Text = result.User;
+                    FollowerTime.Text = PathUtil.FormatTimeSpan(result.SplitTimes[index]);    
+                }
+                else
+                {
+                    FollowerName.Text = "N/A";
+                    FollowerTime.Text = "N/A";
+                }
             }
         }
 

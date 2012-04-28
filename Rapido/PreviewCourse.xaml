@@ -20,7 +20,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <map:Map Width="480" Height="480" x:Name="MapPreview"></map:Map>
+        <map:Map Width="480" Height="480" x:Name="MapPreview" CredentialsProvider="AmBFodFV6OnVX3txADavfoG3SOuhnBD5EwyfnUjf6HdikaZmr7rKd0UQt-n6VBK-" CopyrightVisibility="Collapsed" LogoVisibility="Collapsed"></map:Map>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="&lt;" x:Name="Previous" Click="Previous_Click" />
             <TextBlock Width="345" FontSize="32" TextAlignment="Center" VerticalAlignment="Center">Course 1</TextBlock>

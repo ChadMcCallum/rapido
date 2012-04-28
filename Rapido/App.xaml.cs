@@ -25,6 +25,7 @@ namespace Rapido
         public PhoneApplicationFrame RootFrame { get; private set; }
 
         public Path CurrentCourse { get; set; }
+        public TransportationMode CurrentMode { get; set; }
 
         /// <summary>
         /// Constructor for the Application object.

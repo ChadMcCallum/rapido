@@ -50,7 +50,8 @@ VerticalAlignment="Center" Fill="Yellow" Width="16"/>
             <RowDefinition Height="600" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <map:Map Width="480" Height="600" x:Name="RaceMap" Grid.Row="0">
+        <map:Map Width="480" Height="600" x:Name="RaceMap" Grid.Row="0"  CredentialsProvider="AmBFodFV6OnVX3txADavfoG3SOuhnBD5EwyfnUjf6HdikaZmr7rKd0UQt-n6VBK-"
+                CopyrightVisibility="Collapsed" LogoVisibility="Collapsed">
 
         </map:Map>        
         <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center" x:Name="Distance" Text="You are 30 m away from the start position" />
@@ -90,15 +91,15 @@ VerticalAlignment="Center" Fill="Yellow" Width="16"/>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0">3rd</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1">Phil</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" Foreground="Red">-0:03.75</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="LeaderPlace">3rd</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="LeaderName">Phil</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" x:Name="LeaderTime" Foreground="Red">-0:03.75</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0">4th</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1">You</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="2" x:Name="FinishTime"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="0">5th</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1">Matt</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="2" Foreground="Green">+0:03.75</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" x:Name="FollowerPlace">5th</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="FollowerName">Matt</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="FollowerTime" Foreground="Green">+0:03.75</TextBlock>
             <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Race Again!" Click="Button_Click" />
         </Grid>        
     </Grid>
