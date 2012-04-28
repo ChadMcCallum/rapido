@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
-using Microsoft.Phone.Controls.Maps.Platform;
 
 namespace Rapido
 {
@@ -27,7 +26,7 @@ namespace Rapido
         private void GetCurrentPosition()
         {
             watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            watcher.PositionChanged += watcher_PositionChanged;
             watcher.Start();
         }
 
