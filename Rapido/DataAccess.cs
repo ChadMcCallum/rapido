@@ -19,11 +19,8 @@ namespace Rapido
     {
         public static List<PathTime> _pathTimes = new List<PathTime>();
 
-
         public static PathTime GetBestTimeForPath(String pathKey)
         {
-            Load();
-
             return _pathTimes
                     .Where(x => x.PathKey == pathKey)
                     .OrderBy(x => x.TotalTime)
@@ -32,8 +29,6 @@ namespace Rapido
 
         public static PathTime GetBestTimeForPathByUser(String pathKey, String userName)
         {
-            Load();
-
             return _pathTimes
                         .Where(x => x.PathKey == pathKey && x.User == userName)
                         .OrderBy(x => x.TotalTime)
@@ -41,15 +36,29 @@ namespace Rapido
 
         }
 
-        public static void PostPathTime(PathTime pathTime)
-        {          
-
-            _pathTimes.Add(pathTime);
-
-            Save();
+        public static PathTime GetNextFastestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex)
+        {
+            return _pathTimes
+                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] < lastSplitTime)
+                .OrderByDescending(x => x.SplitTimes[splitIndex])
+                .FirstOrDefault();
         }
 
-        private static void Save()
+        public static PathTime GetNextSlowestTime(String pathKey, TimeSpan lastSplitTime, Int32 splitIndex)
+        {
+            return _pathTimes
+                .Where(x => x.PathKey == pathKey && x.SplitTimes[splitIndex] > lastSplitTime)
+                .OrderBy(x => x.SplitTimes[splitIndex])
+                .FirstOrDefault();
+        }
+
+
+        public static void PostPathTime(PathTime pathTime)
+        {          
+            _pathTimes.Add(pathTime);
+        }
+
+        public static void Save()
         {
             #if WINDOWS_PHONE
             IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication();
@@ -70,7 +79,7 @@ namespace Rapido
             }
         }
 
-        private static void Load()
+        public static void Load()
         {
             // open isolated storage, and load data from the savefile if it exists.
 #if WINDOWS_PHONE
