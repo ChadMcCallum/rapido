@@ -4,6 +4,10 @@ using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
 using Microsoft.Phone.Controls.Maps.Platform;
+using System.Reflection;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rapido
 {

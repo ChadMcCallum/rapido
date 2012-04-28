@@ -27,7 +27,7 @@ namespace Rapido
                 {
                     if (String.IsNullOrWhiteSpace(coordiate))
                         continue;
-                    coordinateList.Add (new Path.Coordinate { Latitude = Double.Parse(coordiate.Split(',')[0]), Longitude = Double.Parse(coordiate.Split(',')[1]) } );
+                    coordinateList.Add (new Path.Coordinate { Latitude = Double.Parse(coordiate.Split(',')[1]), Longitude = Double.Parse(coordiate.Split(',')[0]) } );
                 }
 
                 var path = new Path
