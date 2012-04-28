@@ -27,7 +27,7 @@ namespace Rapido
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/SelectCourse.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/PreviewCourse.xaml", UriKind.Relative));
         }
     }
 }

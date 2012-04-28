@@ -39,5 +39,10 @@ namespace Rapido
         {
             NavigationService.Navigate(new Uri("/Race.xaml", UriKind.Relative));
         }
+
+        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MapPreview.SetView(new GeoCoordinate(50.4545, -104.584351), 14);
+        }
     }
 }
