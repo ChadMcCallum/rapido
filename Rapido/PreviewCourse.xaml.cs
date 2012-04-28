@@ -25,7 +25,7 @@ namespace Rapido
             InitializeComponent();
             GetCurrentPosition();
             DataContext = this;
-            DataAccess.Load();
+            //DataAccess.Load();
             currentMode = TransportationMode.Bike;
             InvertButton(Bike);
         }

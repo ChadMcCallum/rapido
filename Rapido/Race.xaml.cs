@@ -36,8 +36,13 @@ namespace Rapido
         public Race()
         {
             InitializeComponent();
+            
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
             StartWatcher();
-            var app = ((App) Application.Current);
+            var app = ((App)Application.Current);
             currentCourse = app.CurrentCourse;
             mode = app.CurrentMode;
             SetupSplits();
@@ -136,16 +141,17 @@ namespace Rapido
                 {
                     split.Time = DateTime.Now.Subtract(start.Value);
                     split.Pin.Template = Resources["pinSplitPassed"] as ControlTemplate;
+                    UpdateStats(location);
                     break;
                 }
             }
-            UpdateStats(location);
         }
 
         private void FinishRace()
         {
             timer.Stop();
             end = DateTime.Now;
+            splitTimes.Last().Time = end.Value.Subtract(start.Value);
             racing = false;
             watcher.Stop();
             FinishTime.Text = PathUtil.FormatTimeSpan(end.Value.Subtract(start.Value));
@@ -154,7 +160,8 @@ namespace Rapido
                                  PathKey = currentCourse.Key,
                                  Mode = mode,
                                  User = "Chad",
-                                 SplitTimes = splitTimes.Where(s => s.Time.HasValue).Select(s => s.Time.Value).ToArray()
+                                 SplitTimes = splitTimes.Where(s => s.Time.HasValue).Select(s => s.Time.Value).ToArray(),
+                                 TotalTime = end.Value.Subtract(start.Value)
                              };
             DataAccess.PostPathTime(result);
             DataAccess.Save();
@@ -184,8 +191,9 @@ namespace Rapido
                 var result = DataAccess.GetNextFastestTime(currentCourse.Key, lastSplit.Time.Value, index - 1, mode);
                 if(result != null) 
                 {
-                LeaderName.Text = result.User;
-                LeaderTime.Text = PathUtil.FormatTimeSpan(result.SplitTimes[index]);
+                    LeaderName.Text = result.User;
+                    var diff = lastSplit.Time.Value.Subtract(result.SplitTimes[index]);
+                    LeaderTime.Text = "+" + PathUtil.FormatTimeSpan(diff);
                 }
                 else
                 {
@@ -197,7 +205,8 @@ namespace Rapido
                 if(result != null)
                 {
                     FollowerName.Text = result.User;
-                    FollowerTime.Text = PathUtil.FormatTimeSpan(result.SplitTimes[index]);    
+                    var diff = result.SplitTimes[index].Subtract(lastSplit.Time.Value);
+                    FollowerTime.Text = "-" + PathUtil.FormatTimeSpan(diff);    
                 }
                 else
                 {

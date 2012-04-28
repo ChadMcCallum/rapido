@@ -74,10 +74,10 @@ VerticalAlignment="Center" Fill="Yellow" Width="16"/>
             <TextBlock Grid.Row="1" Grid.Column="1" x:Name="Elapsed">0:15.00</TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="0">Split Time</TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" x:Name="SplitTime">0:12.00</TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="0">Phil Ahead</TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1">+0:01.15</TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="0">Matt Behind</TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1">-0:11.87</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" x:Name="LeaderName">Phil Ahead</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="LeaderTime">+0:01.15</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" x:Name="FollowerName">Matt Behind</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="FollowerTime">-0:11.87</TextBlock>
         </Grid>
         <Grid Grid.Row="1" x:Name="Finished" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -92,14 +92,14 @@ VerticalAlignment="Center" Fill="Yellow" Width="16"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" x:Name="LeaderPlace">3rd</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="LeaderName">Phil</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" x:Name="LeaderTime" Foreground="Red">-0:03.75</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1">Phil</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Foreground="Red">-0:03.75</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0">4th</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1">You</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="2" x:Name="FinishTime"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="0" x:Name="FollowerPlace">5th</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="FollowerName">Matt</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="FollowerTime" Foreground="Green">+0:03.75</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1">Matt</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="2" Foreground="Green">+0:03.75</TextBlock>
             <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Race Again!" Click="Button_Click" />
         </Grid>        
     </Grid>

@@ -11,7 +11,7 @@ namespace Rapido
 
         public static string FormatTimeSpan(TimeSpan timespan)
         {
-            return string.Format("{0}:{1:00}.{2:##}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
+            return string.Format("{0}:{1:00}.{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
         }
 
         public static IEnumerable<Path> GetNearestPaths(Double latitude, Double longitude)
